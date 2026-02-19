@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>📚 Student Record Management</h1>
+
+<div class="buttons">
+    <a href="{{ url_for('add_student') }}"><button>Add Student</button></a>
+    <a href="{{ url_for('search_student') }}"><button>Search Student</button></a>
+</div>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Grade</th>
+        <th>Delete</th>
+    </tr>
+
+    {% for s in students %}
+    <tr>
+        <td>{{ s[0] }}</td>
+        <td>{{ s[1] }}</td>
+        <td>{{ s[2] }}</td>
+        <td>
+            <a href="{{ url_for('delete_student', index=loop.index0) }}">
+                <button class="delete">Delete</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+    {% if not students %}
+    <tr>
+        <td colspan="4">No students found</td>
+    </tr>
+    {% endif %}
+</table>
+
+</body>
+</html>
