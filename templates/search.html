@@ -1,26 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Search Student</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-<h2>Search Student</h2>
+{% block content %}
+<div class="card shadow p-4">
+    <h3 class="mb-3">🔍 Search Student</h3>
 
-<form method="post">
-    <input type="text" name="name" placeholder="Enter Name" required>
-    <button type="submit">Search</button>
-</form>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Enter student name" class="form-control mb-3" required>
+        <button type="submit" class="btn btn-success">Search</button>
+    </form>
 
-{% if student %}
-    <h3>Result:</h3>
-    <p>Name: {{ student[0] }}</p>
-    <p>Age: {{ student[1] }}</p>
-    <p>Grade: {{ student[2] }}</p>
-{% endif %}
-
-<a href="{{ url_for('home') }}"><button>Back</button></a>
-
-</body>
-</html>
+    {% if student %}
+        <div class="alert alert-info mt-4">
+            <strong>Result:</strong><br>
+            Name: {{ student.name }}<br>
+            Age: {{ student.age }}<br>
+            Grade: {{ student.grade }}
+        </div>
+    {% elif searched %}
+        <div class="alert alert-danger mt-4">Student not found</div>
+    {% endif %}
+</div>
+{% endblock %}

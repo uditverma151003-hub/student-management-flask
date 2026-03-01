@@ -1,55 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student Management</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>📚 Student Record Management</h1>
+{% block content %}
+<div class="text-center">
+    <h2 class="mb-4">📚 Student Record Dashboard</h2>
 
-<div class="buttons">
-    <a href="{{ url_for('add_student') }}"><button>Add Student</button></a>
-    <a href="{{ url_for('search_student') }}"><button>Search Student</button></a>
-</div>
-
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <div class="flash">
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
+    <div class="row g-4">
+        <div class="col-md-6">
+            <a href="/add" class="btn btn-primary w-100 p-4 fs-5">➕ Add Student</a>
+        </div>
+        <div class="col-md-6">
+            <a href="/search" class="btn btn-success w-100 p-4 fs-5">🔍 Search Student</a>
+        </div>
+        <div class="col-md-6">
+            <a href="/view" class="btn btn-info w-100 p-4 fs-5 text-white">📄 View Records</a>
+        </div>
+        <div class="col-md-6">
+            <a href="/delete" class="btn btn-danger w-100 p-4 fs-5">🗑 Delete Student</a>
+        </div>
     </div>
-  {% endif %}
-{% endwith %}
-
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Grade</th>
-        <th>Delete</th>
-    </tr>
-
-    {% for s in students %}
-    <tr>
-        <td>{{ s[0] }}</td>
-        <td>{{ s[1] }}</td>
-        <td>{{ s[2] }}</td>
-        <td>
-            <a href="{{ url_for('delete_student', index=loop.index0) }}">
-                <button class="delete">Delete</button>
-            </a>
-        </td>
-    </tr>
-    {% endfor %}
-
-    {% if not students %}
-    <tr>
-        <td colspan="4">No students found</td>
-    </tr>
-    {% endif %}
-</table>
-
-</body>
-</html>
+</div>
+{% endblock %}

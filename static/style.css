@@ -1,48 +1,126 @@
+/* ===== Global Styles ===== */
 body {
-    font-family: Arial;
-    text-align: center;
-    background: #f4f6f8;
+    background: linear-gradient(135deg, #eef2ff, #f8fbff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
 }
 
-h1, h2 {
-    color: #333;
+/* ===== Navbar ===== */
+.navbar {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-.buttons button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+.navbar-brand {
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
 }
 
-table {
-    margin: auto;
-    border-collapse: collapse;
-    width: 70%;
-    background: white;
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 12px;
-}
-
-th {
-    background: #007BFF;
-    color: white;
-}
-
-button {
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
-.delete {
-    background: red;
-    color: white;
+/* ===== Dashboard Cards ===== */
+.dashboard-card {
+    border-radius: 18px;
     border: none;
+    padding: 30px;
+    background: white;
+    text-align: center;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
-.flash {
-    color: green;
-    font-weight: bold;
+.dashboard-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Icons */
+.card-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    border-radius: 12px;
+    font-weight: 500;
+    padding: 10px 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.04);
+}
+
+/* ===== Forms ===== */
+.form-control {
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #dbe3ff;
+    transition: 0.2s;
+}
+
+.form-control:focus {
+    border-color: #6c8cff;
+    box-shadow: 0 0 0 0.15rem rgba(108, 140, 255, 0.2);
+}
+
+/* ===== Cards (Forms & Tables) ===== */
+.card {
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* ===== Table Styling ===== */
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: linear-gradient(90deg, #4e73ff, #6c8cff);
+    color: white;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f5ff;
+    transition: 0.2s;
+}
+
+table th, table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* ===== Alerts ===== */
+.alert {
+    border-radius: 12px;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* ===== Page Titles ===== */
+h2, h3 {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* ===== Footer ===== */
+.footer {
+    margin-top: 60px;
+    padding: 15px 0;
+    text-align: center;
+    color: #777;
+    font-size: 0.95rem;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

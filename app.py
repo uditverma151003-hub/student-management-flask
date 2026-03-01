@@ -1,94 +1,94 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-import os
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = "secret123"
 
-FILE = "students.txt"
-
-
-def get_students():
-    if not os.path.exists(FILE):
-        return []
-    with open(FILE, "r") as f:
-        lines = f.readlines()
-        return [line.strip().split(",") for line in lines]
+FILE = "Students.txt"
 
 
-def save_students(students):
+def read_students():
+    students = []
+    try:
+        with open(FILE, "r") as f:
+            for line in f:
+                name, age, grade = line.strip().split(",")
+                students.append({"name": name, "age": age, "grade": grade})
+    except FileNotFoundError:
+        pass
+    return students
+
+
+def write_students(students):
     with open(FILE, "w") as f:
         for s in students:
-            f.write(",".join(s) + "\n")
+            f.write(f"{s['name']},{s['age']},{s['grade']}\n")
 
 
 @app.route("/")
 def home():
-    students = get_students()
-    return render_template("index.html", students=students)
+    return render_template("index.html")
 
 
 @app.route("/add", methods=["GET", "POST"])
-def add_student():
+def add():
     if request.method == "POST":
-        name = request.form["name"].strip()
-        age = request.form["age"].strip()
-        grade = request.form["grade"].strip()
+        name = request.form["name"]
+        age = request.form["age"]
+        grade = request.form["grade"]
 
-        if not name or not age.isdigit() or not grade:
-            flash("Invalid input! Please enter valid details.")
-            return redirect(url_for("add_student"))
-
-        age = int(age)
-        if age <= 0 or age > 120:
-            flash("Please enter a valid age.")
-            return redirect(url_for("add_student"))
-
-        students = get_students()
+        students = read_students()
 
         # duplicate check
         for s in students:
-            if s[0].lower() == name.lower():
-                flash("Student already exists!")
-                return redirect(url_for("home"))
+            if s["name"].lower() == name.lower():
+                return render_template("add.html", message="Student already exists!")
 
-        students.append([name, str(age), grade])
-        save_students(students)
-        flash("Student added successfully!")
-        return redirect(url_for("home"))
+        students.append({"name": name, "age": age, "grade": grade})
+        write_students(students)
+        return render_template("add.html", message="Student added successfully!")
 
     return render_template("add.html")
 
 
 @app.route("/search", methods=["GET", "POST"])
-def search_student():
-    result = None
+def search():
+    student = None
+    searched = False
+
     if request.method == "POST":
-        name = request.form["name"].strip()
-        students = get_students()
+        name = request.form["name"]
+        students = read_students()
+        searched = True
 
         for s in students:
-            if s[0].lower() == name.lower():
-                result = s
+            if s["name"].lower() == name.lower():
+                student = s
                 break
 
-        if not result:
-            flash("Student not found!")
-
-    return render_template("search.html", student=result)
+    return render_template("search.html", student=student, searched=searched)
 
 
-@app.route("/delete/<int:index>")
-def delete_student(index):
-    students = get_students()
+@app.route("/view")
+def view():
+    students = read_students()
+    return render_template("view.html", students=students)
 
-    if 0 <= index < len(students):
-        students.pop(index)
-        save_students(students)
-        flash("Student deleted successfully!")
-    else:
-        flash("Invalid student!")
 
-    return redirect(url_for("home"))
+@app.route("/delete", methods=["GET", "POST"])
+def delete():
+    message = None
+    if request.method == "POST":
+        name = request.form["name"]
+        students = read_students()
+
+        new_students = [s for s in students if s["name"].lower() != name.lower()]
+
+        if len(new_students) == len(students):
+            message = "Student not found!"
+        else:
+            write_students(new_students)
+            message = "Student deleted successfully!"
+
+    return render_template("delete.html", message=message)
 
 
 if __name__ == "__main__":

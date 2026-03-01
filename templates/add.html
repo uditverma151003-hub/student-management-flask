@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Student</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-<h2>Add Student</h2>
+{% block content %}
+<div class="card shadow p-4">
+    <h3 class="mb-3">➕ Add New Student</h3>
 
-<form method="post">
-    <input type="text" name="name" placeholder="Enter Name" required>
-    <input type="text" name="age" placeholder="Enter Age" required>
-    <input type="text" name="grade" placeholder="Enter Grade" required>
-    <button type="submit">Add</button>
-</form>
+    {% if message %}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endif %}
 
-<a href="{{ url_for('home') }}"><button>Back</button></a>
-
-</body>
-</html>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Name" class="form-control mb-3" required>
+        <input type="number" name="age" placeholder="Age" class="form-control mb-3" required>
+        <input type="text" name="grade" placeholder="Grade" class="form-control mb-3" required>
+        <button type="submit" class="btn btn-primary">Add Student</button>
+    </form>
+</div>
+{% endblock %}
