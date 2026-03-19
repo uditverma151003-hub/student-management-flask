@@ -1,21 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="text-center">
-    <h2 class="mb-4">📚 Student Record Dashboard</h2>
+<div class="text-center mt-4">
+    <h2 class="mb-3 animate-fade-up text-gradient">Welcome back!</h2>
+    <p class="text-muted mb-5 animate-fade-up delay-1">Manage all your student records effortlessly from this control center.</p>
 
-    <div class="row g-4">
-        <div class="col-md-6">
-            <a href="/add" class="btn btn-primary w-100 p-4 fs-5">➕ Add Student</a>
+    <div class="row g-4 max-w-4xl mx-auto">
+        <div class="col-md-6 animate-fade-up delay-1">
+            <a href="/add" class="dashboard-card card-add">
+                <div class="icon-wrapper"><i class="ph-fill ph-user-plus"></i></div>
+                <h4>Add Student</h4>
+                <p class="text-muted mb-0">Enroll a new student into the system</p>
+            </a>
         </div>
-        <div class="col-md-6">
-            <a href="/search" class="btn btn-success w-100 p-4 fs-5">🔍 Search Student</a>
+        <div class="col-md-6 animate-fade-up delay-2">
+            <a href="/search" class="dashboard-card card-search">
+                <div class="icon-wrapper"><i class="ph-fill ph-users-three"></i></div>
+                <h4>Search Directory</h4>
+                <p class="text-muted mb-0">Find student records instantly</p>
+            </a>
         </div>
-        <div class="col-md-6">
-            <a href="/view" class="btn btn-info w-100 p-4 fs-5 text-white">📄 View Records</a>
+        <div class="col-md-6 animate-fade-up delay-3">
+            <a href="/view" class="dashboard-card card-view">
+                <div class="icon-wrapper"><i class="ph-fill ph-book-open"></i></div>
+                <h4>View All Records</h4>
+                <p class="text-muted mb-0">Browse and manage the full directory</p>
+            </a>
         </div>
-        <div class="col-md-6">
-            <a href="/delete" class="btn btn-danger w-100 p-4 fs-5">🗑 Delete Student</a>
+        <div class="col-md-6 animate-fade-up delay-4">
+            <a href="/delete" class="dashboard-card card-delete">
+                <div class="icon-wrapper"><i class="ph-fill ph-trash"></i></div>
+                <h4>Delete Record</h4>
+                <p class="text-muted mb-0">Remove outdated student profiles</p>
+            </a>
         </div>
     </div>
 </div>

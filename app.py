@@ -91,5 +91,13 @@ def delete():
     return render_template("delete.html", message=message)
 
 
+@app.route("/delete_entry/<name>", methods=["POST"])
+def delete_entry(name):
+    students = read_students()
+    new_students = [s for s in students if s["name"].lower() != name.lower()]
+    write_students(new_students)
+    return redirect(url_for("view"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)

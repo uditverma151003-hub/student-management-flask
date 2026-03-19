@@ -1,23 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card shadow p-4">
-    <h3 class="mb-3">🔍 Search Student</h3>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card p-5 animate-fade-up">
+            <div class="text-center mb-4">
+                <div class="icon-wrapper mx-auto mb-3" style="width: 60px; height: 60px; font-size: 28px;">
+                    <i class="ph-fill ph-magnifying-glass"></i>
+                </div>
+                <h3 class="mb-1 text-gradient">Search Directory</h3>
+                <p class="text-muted">Quickly locate student profiles</p>
+            </div>
 
-    <form method="POST">
-        <input type="text" name="name" placeholder="Enter student name" class="form-control mb-3" required>
-        <button type="submit" class="btn btn-success">Search</button>
-    </form>
+            <form method="POST">
+                <div class="mb-4">
+                    <input type="text" name="name" placeholder="Enter student's exact name..." class="form-control form-control-lg text-center shadow-sm" required>
+                </div>
+                <button type="submit" class="btn btn-vibrant w-100">Search Records</button>
+            </form>
 
-    {% if student %}
-        <div class="alert alert-info mt-4">
-            <strong>Result:</strong><br>
-            Name: {{ student.name }}<br>
-            Age: {{ student.age }}<br>
-            Grade: {{ student.grade }}
+            <div class="mt-4 pt-4 border-top animate-fade-up">
+                {% if student %}
+                    <div class="alert alert-info">
+                        <i class="ph-fill ph-user-circle" style="font-size: 24px;"></i>
+                        <div>
+                            <div class="fw-bold mb-1">{{ student.name }}</div>
+                            <div class="small">Age: {{ student.age }} &nbsp;|&nbsp; Grade: <span class="badge-grade">{{ student.grade }}</span></div>
+                        </div>
+                    </div>
+                {% elif searched %}
+                    <div class="alert alert-warning" style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; color: #b45309;">
+                        <i class="ph-fill ph-warning-circle" style="font-size: 24px;"></i>
+                        <strong>No Match Found</strong>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-    {% elif searched %}
-        <div class="alert alert-danger mt-4">Student not found</div>
-    {% endif %}
+    </div>
 </div>
 {% endblock %}
